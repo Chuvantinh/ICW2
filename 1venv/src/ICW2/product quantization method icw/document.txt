@@ -1,0 +1,57 @@
+1. Joint K-Means quantization for Approximate Nearest Neighbor Search
+https://www.researchgate.net/publication/316443215_Joint_K-Means_quantization_for_Approximate_Nearest_Neighbor_Search
+
+2. https://www.researchgate.net/publication/47815472_Product_Quantization_for_Nearest_Neighbor_Search
+3. Product Quantization for Nearest Neighbor Search
+        https://hal.inria.fr/inria-00514462v2/document
+4. https://openaccess.thecvf.com/content_CVPR_2019/papers/Li_Compressing_Unknown_Images_With_Product_Quantizer_for_Efficient_Zero-Shot_Classification_CVPR_2019_paper.pdf
+5. some methode to reduce the dimension of dataset: https://en.wikipedia.org/wiki/Dimensionality_reduction#UMAP
+6: dung cai nay de giam dimension
+   https://en.wikipedia.org/wiki/Dimensionality_reduction#UMAP
+   https://en.wikipedia.org/wiki/K-nearest_neighbors_algorithm
+7. https://hal.inria.fr/inria-00514462v2/document
+8 youtube video
+    vector quantization
+    https://www.youtube.com/watch?v=Hh5M2bXIaH8&ab_channel=Prof.LaurenzWiskott
+
+
+-------------------------------------------------------------
+1. dataset : SIFT1M and GIST1M
+
+keywords: Index Terms— High-dimensional indexing, image indexing,
+very large databases, approximate search.
+
+methode 1: hashing, 2 : product quantization, 3 Residual Vector Quantization (RVQ)
+vertor quantization and product quantization
+
+OR YOU CAN DOWLOADN HERE
+https://xinyandai.github.io/#Datasets
+
+2. 3 phuong phap to compress high dimension
+
+In this section, we briefly review related work in
+zeroshot learning,
+vector quantization and
+approximate nearest neighbor search.  (this one ist another methode)
+in https://openaccess.thecvf.com/content_CVPR_2019/papers/Li_Compressing_Unknown_Images_With_Product_Quantizer_for_Efficient_Zero-Shot_Classification_CVPR_2019_paper.pdf
+
+-------------------------------------------------------------
+EXAMPLE:
+
+1. https://github.com/DwangoMediaVillage/pqkmeans
+    via pqkmeans compressing dimension
+
+encoder = pqkmeans.encoder.PQEncoder(num_subdim=2, Ks=256)
+encoder.fit(X1)
+
+1000 6D / 2 = 1000 3D
+that is good with python.
+
+2. https://github.com/xinyandai/product-quantization
+
+3. zeroshort learning: to detect object, car or home or something
+https://github.com/cetinsamet/zero-shot-learning
+
+4. Locally Optimized Product Quantization  is a hierarchical quantization algorithm  like product quantization
+https://github.com/yahoo/lopq
+
