@@ -1,7 +1,5 @@
 # model base algorithmen is
 # There are two major approaches that are based on the model-based method: statistical and neural network approaches.
-
-
     # document
     # Testing for linkage disequilibrium in genotypic data using the Expectation-Maximization algorithm
     # https://www.nature.com/articles/hdy199655

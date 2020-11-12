@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 from sklearn.decomposition import PCA
 
-n_points_per_cluster_total = 100000
+n_points_per_cluster_total = 1000000
 size_colum = 100
 centers = np.random.randint(-20, 20, size=(size_colum,size_colum))
 
@@ -23,13 +23,19 @@ print(X.shape)
 # Train a PQ encoder.
 # Each vector is divided into 4 parts and each part is
 # encoded with log256 = 8 bit, resulting in a 32 bit PQ code.
-encoder = pqkmeans.encoder.PQEncoder(num_subdim=4, Ks=256)
+encoder = pqkmeans.encoder.PQEncoder(num_subdim=5, Ks=256)
 encoder.fit(X)  # Use a subset of X for training
-
+# (4, 256, 25) 4 subpspaces $*$ 256 codewords $*$ 25 dimensions):
+print("codewords.shape:\n{}".format(encoder.codewords.shape))
 # Convert input vectors to 32-bit PQ codes, where each PQ code consists of four uint8.
 # You can train the encoder and transform the input vectors to PQ codes preliminary.
 X_pqcode = encoder.transform(X)
-print(X_pqcode)
+#X_reconstructed = encoder.inverse_transform(X_pqcode)
+#print("X_reconstructed.shap: ")
+#print(X_reconstructed.shape)
+print("X_pqcode.shape")
+print(X_pqcode.shape)
+
 # Run clustering with k=5 clusters.
 db_time_pqkmean = time.time()
 pqkmeans_cluster = pqkmeans.clustering.PQKMeans(encoder=encoder, k=100)
