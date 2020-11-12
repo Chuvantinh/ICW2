@@ -32,11 +32,11 @@
 ################################################################################
 ### PRACTIVE paramter KMeans(n_clusters=100, random_state=0, n_jobs=-1).fit(X)
 ### 100 dimension
-# 1 milion 206 s,
+# 1 milion 206 s,    pq: 11s
 # 2 milion , 426.6510 s
 # 3 milion  764.9357 s
 #4 milion 996.6241 s
-# 5 milion 1215.7721 s
+# 5 milion 1215.7721 s  , PQ: 31S
 # 6 milion 1417.5992 s = 23min
 # 7 milion  2846.3684 s = 47 min
 #  8 milion
