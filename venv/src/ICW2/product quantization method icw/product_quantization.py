@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 from sklearn.decomposition import PCA
 
-n_points_per_cluster_total = 10000
+n_points_per_cluster_total = 4000000
 size_colum = 100
 centers = np.random.randint(-20, 20, size=(size_colum,size_colum))
 
