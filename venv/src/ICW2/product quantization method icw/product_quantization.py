@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 from sklearn.decomposition import PCA
 
-n_points_per_cluster_total = 4000000
+n_points_per_cluster_total = 5000000
 size_colum = 100
 centers = np.random.randint(-20, 20, size=(size_colum,size_colum))
 
@@ -34,36 +34,52 @@ X_pqcode = encoder.transform(X)
 #print("X_reconstructed.shap: ")
 #print(X_reconstructed.shape)
 print("X_pqcode.shape")
-print(X_pqcode)
+print(X_pqcode.shape)
 
 # Run clustering with k=5 clusters.
-db_time_pqkmean = time.time()
-pqkmeans_cluster = pqkmeans.clustering.PQKMeans(encoder=encoder, k=100)
-clustered = pqkmeans_cluster.fit_predict(X_pqcode)
-db_time_pqkmean_process = time.time() - db_time_pqkmean
-print('Number of cluster in PQ Kmeans :  % s ' % len(pqkmeans_cluster.cluster_centers_))
-print('Elapsed time to cluster in PQ Kmeans :  %.4f s ' % db_time_pqkmean_process)
+# db_time_pqkmean = time.time()
+# pqkmeans_cluster = pqkmeans.clustering.PQKMeans(encoder=encoder, k=100)
+# clustered = pqkmeans_cluster.fit_predict(X_pqcode)
+# db_time_pqkmean_process = time.time() - db_time_pqkmean
+# print('Number of cluster in PQ Kmeans :  % s ' % len(pqkmeans_cluster.cluster_centers_))
+# print('Elapsed time to cluster in PQ Kmeans :  %.4f s ' % db_time_pqkmean_process)
 
-X_reconstructed = encoder.inverse_transform(X_pqcode)
-print("X: \n")
-print(X)
-print("X_reconstructed: \n")
-print(X_reconstructed)
-print("------------------------------")
-print("Encode of pqkmeans_cluster.cluster_centers_ :")
-print(pqkmeans_cluster.cluster_centers_)
-print("X PQ centers reconstructed: \n")
-clustering_centers_numpy = np.array(pqkmeans_cluster.cluster_centers_, dtype=encoder.code_dtype)  # Convert to np.array with the proper dtype
-clustering_centers_reconstructd = encoder.inverse_transform(clustering_centers_numpy) # From PQ-code to 6D vectors
-print(clustering_centers_reconstructd)
+# Run data encoder with dbscan
+#ball tree is the best
+from sklearn.cluster import DBSCAN
+db_time_dbscan = time.time()
+db = DBSCAN(eps=10,algorithm='ball_tree',leaf_size=10, min_samples=100, n_jobs = -1).fit(X_pqcode)
+db_time_dbscan_process = time.time() - db_time_dbscan
+#array false for core samples mask
+core_samples_mask = np.zeros_like(db.labels_, dtype=bool)
+#set for db.core sample indices as true
+core_samples_mask[db.core_sample_indices_] = True
+labels = db.labels_
+n_clusters_ = len(set(labels)) - (1 if -1 in labels else 0)
 
-db_time = time.time()
-kmeans = KMeans(n_clusters=100, random_state=0, n_jobs=-1).fit(X)
-kmeans.predict(X)
+print('Number of cluster in DBSCANN :  % d ' % n_clusters_)
+print('Elapsed time to cluster in DBSCANN :  %.4f s ' % db_time_dbscan_process)
 
-db_time_process = time.time() - db_time
-print('Number of cluster in  Kmeans :  % s ' % len(kmeans.cluster_centers_))
-print('Elapsed time to cluster in kmeans :  %.4f s ' % db_time_process)
+# X_reconstructed = encoder.inverse_transform(X_pqcode)
+# print("X: \n")
+# print(X)
+# print("X_reconstructed: \n")
+# print(X_reconstructed)
+# print("------------------------------")
+# print("Encode of pqkmeans_cluster.cluster_centers_ :")
+# print(pqkmeans_cluster.cluster_centers_)
+# print("X PQ centers reconstructed: \n")
+# clustering_centers_numpy = np.array(pqkmeans_cluster.cluster_centers_, dtype=encoder.code_dtype)  # Convert to np.array with the proper dtype
+# clustering_centers_reconstructd = encoder.inverse_transform(clustering_centers_numpy) # From PQ-code to 6D vectors
+# print(clustering_centers_reconstructd)
+
+# db_time = time.time()
+# kmeans = KMeans(n_clusters=100, random_state=0, n_jobs=-1).fit(X_pqcode)
+# kmeans.predict(X_pqcode)
+#
+# db_time_process = time.time() - db_time
+# print('Number of cluster in  Kmeans :  % s ' % len(kmeans.cluster_centers_))
+# print('Elapsed time to cluster in kmeans :  %.4f s ' % db_time_process)
 
 # Then, clustered[0] is the id of assigned center for the first input PQ code (X_pqcode[0]).
 

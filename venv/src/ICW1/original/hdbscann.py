@@ -56,6 +56,7 @@ n_clusters_hdb_ = len(set(hdb_labels)) - (1 if -1 in hdb_labels else 0)
 
 print('\n\n++ HDBSCAN Results')
 print('Len of Cluster are : ', len(X))
+print(hdb_labels)
 print('Estimated number of clusters: %d' % n_clusters_hdb_)
 print('Elapsed time to cluster: %.4f s' % hdb_elapsed_time)
 # Plot result
