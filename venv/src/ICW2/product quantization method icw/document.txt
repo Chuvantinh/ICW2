@@ -35,6 +35,28 @@ vector quantization and
 approximate nearest neighbor search.  (this one ist another methode)
 in https://openaccess.thecvf.com/content_CVPR_2019/papers/Li_Compressing_Unknown_Images_With_Product_Quantizer_for_Efficient_Zero-Shot_Classification_CVPR_2019_paper.pdf
 
+3.
+- Color image quantization (CIQ) [1] is one of the popular methods to compress any true color image
+Ho chia block ra sau do thi tong hop ket qa vao
+
+- no run tung subvector vs kmeans: nhung xac dinh subvector kieu gi thi chua biet
+http://ethen8181.github.io/machine-learning/deep_learning/multi_label/product_quantization.html
+1 vai dinh ngia cua no; thay oki do
+The cluster centroids is referred to as codebook.
+The cluster index is called a code, a reproduction value, a reconstruction value.
+- run 8 part with 8 kmeans:
+https://rutgers-db.github.io/cs541-fall19/slides/notes5.pdf
+
+
+The reproduction
+values ci are called centroids. The set of reproduction
+values C is the codebook of size k.
+m. The codebook is therefore defined as the
+Cartesian product
+C = C1 × . . . × Cm
+
+GHi chu:
+vector -> subvector cung voi cai the nearest sub-codeword zt vector xt.
 -------------------------------------------------------------
 EXAMPLE:
 
@@ -54,4 +76,7 @@ https://github.com/cetinsamet/zero-shot-learning
 
 4. Locally Optimized Product Quantization  is a hierarchical quantization algorithm  like product quantization
 https://github.com/yahoo/lopq
-
+5. analyze code product quantization
+https://github.com/xinyandai/product-quantization/blob/master/run_pq.py
+6. example from skcli
+http://ethen8181.github.io/machine-learning/deep_learning/multi_label/product_quantization.html#Learning-Code-Book
