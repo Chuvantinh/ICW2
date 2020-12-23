@@ -36,17 +36,28 @@
 # 2 milion , 426.6510 s
 # 3 milion  764.9357 s
 #4 milion 996.6241 s
-# 5 milion 1215.7721 s  , PQ: 31S
-# 6 milion 1417.5992 s = 23min
+# 5 milion 1215.7721 s  ,
+# PQ: k = 100 31s ,  train 1 trieu 3 phut xong,
+# convert time: 13: 20 to 13:22  co 2 phut thoi
+# run 5 trieu PQ k= 100 trong vong 33s
+
+# 6 milion 1417.5992 s = 23min       13h 25: to 13h32
+# encode 5 phut ,  run time pq: 39s
 # 7 milion  2846.3684 s = 47 min
-#  8 milion
+#  8 milion : k = 100 time 50s
+#  9 milion : k = 100 time 57s
+
+# 10 trieu du lieu: 13h23
+
+# encode:
+
 
 #dbscan normal with
 #    1milion  in
 #    2milion  in
 #    3milion  in
 #    4milion  in
-#    5milion  in
+#    5milion resconstructur ohne subvector in 13:09
 #    6milion  in
 #    7milion  in
 

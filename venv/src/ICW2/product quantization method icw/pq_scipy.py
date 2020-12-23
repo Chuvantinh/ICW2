@@ -21,7 +21,7 @@ sub_size = 5  # m
 n_cluster = 100  # k
 
 #dataset
-n_points_per_cluster_total = 10000
+n_points_per_cluster_total = 500000
 size_colum = 100
 centers = np.random.randint(-20, 20, size=(size_colum,size_colum))
 
@@ -61,11 +61,11 @@ print("Data type of each element sub_vectors :\n{}\n".format(type(sub_vectors[1]
 print('sub_vectors LEN: ', len(sub_vectors))
 print ('X1 : ',X1)
 print('sub_vectors 0 shap: ',sub_vectors[0].shape)
-print('sub_vectors 0: ',sub_vectors[0])
-# print('sub_vectors 1: ',sub_vectors[1])
-# print('sub_vectors 2: ',sub_vectors[2])
-# print('sub_vectors 3: ',sub_vectors[3])
-# print('sub_vectors 4: ',sub_vectors[4])
+print('sub_vectors 0: ',sub_vectors[0].shape)
+print('sub_vectors 1: ',sub_vectors[1].shape)
+print('sub_vectors 2: ',sub_vectors[2])
+print('sub_vectors 3: ',sub_vectors[3])
+print('sub_vectors 4: ',sub_vectors[4])
 ############# KMEANS #################
 db_time = time.time()
 kmeans = KMeans(n_clusters=100, random_state=0, n_jobs=-1).fit(sub_vectors[0])

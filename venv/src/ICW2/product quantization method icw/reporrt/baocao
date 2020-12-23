@@ -1,0 +1,20 @@
+1. PQ returns only intergern code
+2. faiss: just index
+
+3. they said: K-nearest neighbors algorithm (k-NN)
+https://en.wikipedia.org/wiki/Dimensionality_reduction#Dimension_reduction
+For high-dimensional datasets (i.e. with number of dimensions more than 10), dimension reduction is usually performed prior to applying a K-nearest neighbors algorithm (k-NN)
+in order to avoid the effects of the curse of dimensionality.[20]
+
+4. Graus Random projection
+It just reduce the high-dimension to lower-dimension in the space.like PCA
+https://scikit-learn.org/stable/modules/random_projection.html
+to reduce high-dimension via eculide space
++ grauss random projection in folder projection
+
+5. Multifactor dimensionality reduction
+https://en.wikipedia.org/wiki/Multifactor_dimensionality_reduction
+The basis of the MDR method is a constructive induction or feature
+engineering algorithm that converts two or more variables or attributes to a single attribute
+
+mdr code: https://github.com/EpistasisLab/scikit-mdr
