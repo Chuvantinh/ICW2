@@ -37,7 +37,7 @@ np.random.seed(0)
 
 #############################################################################
 # Generate Date Set
-n_points_per_cluster_total = 5000000
+n_points_per_cluster_total = 5000
 size_colum = 100
 centers = np.random.randint(-100, 100, size=(size_colum,size_colum))
 
@@ -50,6 +50,7 @@ hdb_t1 = time.time()
 min_cluster_size = 10
 hdb = HDBSCAN(min_cluster_size=min_cluster_size, algorithm='boruvka_kdtree', core_dist_n_jobs=-1, ).fit(X)
 hdb_labels = hdb.labels_
+print('hdb_labels', hdb_labels)
 hdb_elapsed_time = time.time() - hdb_t1
 
 n_clusters_hdb_ = len(set(hdb_labels)) - (1 if -1 in hdb_labels else 0)
