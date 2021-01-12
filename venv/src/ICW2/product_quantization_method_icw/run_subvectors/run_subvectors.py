@@ -12,7 +12,7 @@ from mpl_toolkits.mplot3d import Axes3D
 from sklearn.decomposition import PCA
 time_all = time.time()
 # Creating the original records in order to cluster it
-n_points_per_cluster_total = 100000
+n_points_per_cluster_total = 4000000
 size_colum = 100
 centers = np.random.randint(-20, 20, size=(size_colum,size_colum))
 #print('centers', centers[0])
@@ -39,7 +39,7 @@ X4 = X[:, 75:100]
 ###############
 from sklearn.cluster import KMeans
 # Try X1 with kmeans
-kmeans = KMeans(n_clusters=50, random_state=0).fit(X1)
+kmeans = KMeans(n_clusters=100, random_state=0).fit(X1)
 centers = kmeans.cluster_centers_
 #print('centers', centers)
 #print('kmeans.labels_', kmeans.labels_[:10])
@@ -56,7 +56,7 @@ print('###############################################')
 # n_clusters_ = len(set(labels)) - (1 if -1 in labels else 0)
 # print('X1 : Number of cluster in DBSCANN :  % d ' % n_clusters_)
 # print('X1: Elapsed time to cluster in DBSCANN :  %.4f s ' % db_time_dbscan_process)
-kmeans2 = KMeans(n_clusters=50, random_state=0).fit(X2)
+kmeans2 = KMeans(n_clusters=100, random_state=0).fit(X2)
 centers2 = kmeans2.cluster_centers_
 # print('centers of kmeans 2', centers2)
 # print('kmeans2.labels_', kmeans2.labels_[:10])
@@ -64,7 +64,7 @@ centers2 = kmeans2.cluster_centers_
 # print('###############################################')
 
 # Try X3 with kmeans
-kmeans3 = KMeans(n_clusters=50, random_state=0).fit(X3)
+kmeans3 = KMeans(n_clusters=100, random_state=0).fit(X3)
 centers3 = kmeans3.cluster_centers_
 # print('centers of kmeans 3', centers3)
 # print('kmeans3.labels_', kmeans3.labels_[:10])
@@ -72,7 +72,7 @@ centers3 = kmeans3.cluster_centers_
 # print('###############################################')
 
 print('###############################################')
-kmeans4 = KMeans(n_clusters=50, random_state=0).fit(X4)
+kmeans4 = KMeans(n_clusters=100, random_state=0).fit(X4)
 centers4 = kmeans4.cluster_centers_
 # print('centers of kmeans 3', centers4)
 # print('kmeans4.labels_', kmeans4.labels_[:10])
@@ -92,18 +92,20 @@ centers4 = kmeans4.cluster_centers_
 print('###############################################')
 #total_labels = kmeans.labels_ + kmeans2.labels_ + kmeans3.labels_ + kmeans4.labels_
 #total_labels = np.stack((kmeans.labels_, kmeans2.labels_, kmeans3.labels_, kmeans4.labels_), axis = 1)
-total_labels = np.concatenate((kmeans.labels_, kmeans2.labels_, kmeans3.labels_, kmeans4.labels_), axis=None)
-print(total_labels[20:30])
+# total_labels = np.concatenate((kmeans.labels_, kmeans2.labels_, kmeans3.labels_, kmeans4.labels_), axis=None)
+total_labels = np.stack((kmeans.labels_, kmeans2.labels_, kmeans3.labels_, kmeans4.labels_), axis=1)
+print(total_labels[20:50])
 print('total_labels',total_labels.shape)
 # filter unique index in array
 Index_values = np.unique(total_labels, axis = 0)
+
 print('index_values', Index_values)
 print('len of index_values', Index_values.shape)
 #import collections
 #same_element = [item for item, count in collections.Counter(total_labels).items() if count > 1]
 # differences_element = [item for item, count in collections.Counter(total_labels).items() if count == 1]
 
-data_records = []
+#data_records = []
 for index in Index_values:
     data_records = [datapoint for (i, datapoint) in zip(total_labels, X) if np.array_equal(i, index)]
     # for (i, datapoint) in zip(total_labels,X):
@@ -113,26 +115,28 @@ for index in Index_values:
 data_records = np.array( data_records )
 print('data_records', data_records)
 print('len(data_records)', data_records.shape)
+# 40.000 in 100 dimension
+time_kmean_last = time.time()
 # last run with optics or dbscan to find the last cluster of the original set
 # Optics with X
-# from sklearn.cluster import OPTICS
-# optics = OPTICS(min_samples=10, xi=.05, min_cluster_size=.05, n_jobs=-1).fit(data_records)
-# print('Optics clustering labels', optics.labels_)
-# print(' Len Optics clustering labels', len(optics.labels_))
-# op_labels = optics.labels_
-# print('Optics labels :', op_labels)
-# n_clusters_op_ = len(set(op_labels)) - (1 if -1 in op_labels else 0)
-# print('Number CLuster of Optics is ', n_clusters_op_)
-# print('optics The cluster ordered list of sample indices. ', optics.ordering_)
+from sklearn.cluster import OPTICS
+optics = OPTICS(min_samples=10, xi=.05, min_cluster_size=.05, n_jobs=-1).fit(data_records)
+print('Optics clustering labels', optics.labels_)
+print(' Len Optics clustering labels', len(optics.labels_))
+op_labels = optics.labels_
+print('Optics labels :', op_labels)
+n_clusters_op_ = len(set(op_labels)) - (1 if -1 in op_labels else 0)
+print('Number CLuster of Optics is ', n_clusters_op_)
+print('optics The cluster ordered list of sample indices. ', optics.ordering_)
 
 print('###############################################')
-time_kmean_last = time.time()
-kmeans_last = KMeans(n_clusters=100, random_state=0).fit(data_records)
-centers_last = kmeans_last.cluster_centers_
-print('centers of kmeans_last', centers_last)
-print('centers of kmeans_last', len(centers_last))
-print('kmeans_last.labels_', kmeans_last.labels_[:10])
-print('kmeans_last.labels_ len', len(kmeans_last.labels_))
+
+# kmeans_last = KMeans(n_clusters=100, random_state=0).fit(data_records)
+# centers_last = kmeans_last.cluster_centers_
+# print('centers of kmeans_last', centers_last)
+# print('centers of kmeans_last', len(centers_last))
+# print('kmeans_last.labels_', kmeans_last.labels_[:10])
+# print('kmeans_last.labels_ len', len(kmeans_last.labels_))
 print('###############################################')
 time_last=  time.time() - time_kmean_last
 time_total =  time.time() - time_all
@@ -150,3 +154,16 @@ print('time_total', time_total)
 # 4mi : 68 index ; len(data_records) (40000, 100) , runtime total is 2915 s = 48 min
 # only 40.000 element after processing in time_last 19.903489112854004 s
     # total time processsing is time_total 3503.8546810150146 = 58 min
+
+# optics :
+# total_labels (4000000, 4)
+# len of index_values (100, 4), len(data_records) (40000, 100)
+# Optics clustering labels [0 0 0 ... 0 0 0]
+#  Len Optics clustering labels 40000
+# Optics labels : [0 0 0 ... 0 0 0]
+# Number CLuster of Optics is  1
+# optics The cluster ordered list of sample indices.  [    0   683  4431 ... 19253 20978 30723]
+# ###############################################
+# ###############################################
+# time_last 2179.011593103409
+# time_total 5496.804363012314
