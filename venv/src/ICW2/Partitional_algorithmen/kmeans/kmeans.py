@@ -36,7 +36,7 @@
 # 2 milion , 426.6510 s
 # 3 milion  764.9357 s
 #4 milion 996.6241 s
-# 5 milion 1215.7721 s  ,
+# 5 milion 1215.7721 s , = 20min
 # PQ: k = 100 31s ,  train 1 trieu 3 phut xong,
 # convert time: 13: 20 to 13:22  co 2 phut thoi
 # run 5 trieu PQ k= 100 trong vong 33s
