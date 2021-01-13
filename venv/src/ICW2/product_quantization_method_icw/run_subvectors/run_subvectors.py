@@ -148,8 +148,6 @@ print('time_total', time_total)
 # 5 mi, len of total labels in init vector 82 # time_total 2588.9190237522125 = 43 min
 # 7 mi, len of total labels in init vector 79 # time_total 3572.8744649887085  = 1 hour
 
-# last round with optics
-# 2 milion data set in
 ##### Kmeans on last round
 # 4mi : 68 index ; len(data_records) (40000, 100) , runtime total is 2915 s = 48 min
 # only 40.000 element after processing in time_last 19.903489112854004 s
