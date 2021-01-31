@@ -12,12 +12,12 @@ from mpl_toolkits.mplot3d import Axes3D
 from sklearn.decomposition import PCA
 time_all = time.time()
 # Creating the original records in order to cluster it
-n_points_per_cluster_total = 1000
+n_points_cluster = 4000
 size_colum = 100
 centers = np.random.randint(-20, 20, size=(size_colum,size_colum))
 #print('centers', centers[0])
 # train
-X, labels_true = make_blobs(n_samples=n_points_per_cluster_total,
+X, labels_true = make_blobs(n_samples=n_points_cluster,
                             centers=centers,
                             n_features=size_colum,
                             cluster_std=0.4,

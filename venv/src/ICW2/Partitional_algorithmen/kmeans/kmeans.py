@@ -37,6 +37,8 @@
 # 3 milion  764.9357 s
 #4 milion 996.6241 s
 # 5 milion 1215.7721 s , = 20min
+
+
 # PQ: k = 100 31s ,  train 1 trieu 3 phut xong,
 # convert time: 13: 20 to 13:22  co 2 phut thoi
 # run 5 trieu PQ k= 100 trong vong 33s
@@ -82,11 +84,11 @@ import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 from sklearn.decomposition import PCA
 
-n_points_per_cluster_total = 7000000
+n_points_of_cluster = 4000000
 size_colum = 100
 centers = np.random.randint(-20, 20, size=(size_colum,size_colum))
 
-X, labels_true = make_blobs(n_samples=n_points_per_cluster_total,centers=centers, n_features=size_colum, cluster_std=0.4, random_state=0)
+X, labels_true = make_blobs(n_samples=n_points_of_cluster,centers=centers, n_features=size_colum, cluster_std=0.4, random_state=0)
 print(X.shape)
 
 #################################################################### plot data before run
@@ -114,32 +116,32 @@ print(X.shape)
 
 ################################################################################
 db_time = time.time()
-kmeans = KMeans(random_state=0, n_jobs=-1).fit(X)
+kmeans = KMeans(n_clusters=100, random_state=0, n_jobs=-1).fit(X)
 kmeans.predict(X)
 
 db_time_process = time.time() - db_time
 print('Elapsed time to cluster in kmeans :  %.4f s ' % db_time_process)
 
-print(len(kmeans.cluster_centers_))
+# print(len(kmeans.cluster_centers_))
 ################################################################################
 ### Plot data after running
-unique_labels = set(kmeans.labels_)
-colors = plt.cm.Spectral(np.linspace(0, 1, len(unique_labels)))
-fig = plt.figure()
-ax = plt.axes(projection='3d')
-pca = PCA(3)
-projected = pca.fit_transform(X)
-
-for k, col in zip(unique_labels, colors):
-    if k == -1:
-        # Black used for noise.
-        col = 'k'
-    ax.plot3D(projected[kmeans.labels_ == k, 0], projected[kmeans.labels_ == k, 1],projected[kmeans.labels_ == k, 2], 'o', markerfacecolor=col,
-                  markeredgecolor='k', markersize=6)
-
-plt.xlabel('Achse X')
-plt.ylabel('Achse Y')
-plt.title('PCA')
-plt.grid(True)
-plt.savefig('pca/after_%d'%len(X)+'.png')
-plt.show()
+# unique_labels = set(kmeans.labels_)
+# colors = plt.cm.Spectral(np.linspace(0, 1, len(unique_labels)))
+# fig = plt.figure()
+# ax = plt.axes(projection='3d')
+# pca = PCA(3)
+# projected = pca.fit_transform(X)
+#
+# for k, col in zip(unique_labels, colors):
+#     if k == -1:
+#         # Black used for noise.
+#         col = 'k'
+#     ax.plot3D(projected[kmeans.labels_ == k, 0], projected[kmeans.labels_ == k, 1],projected[kmeans.labels_ == k, 2], 'o', markerfacecolor=col,
+#                   markeredgecolor='k', markersize=6)
+#
+# plt.xlabel('Achse X')
+# plt.ylabel('Achse Y')
+# plt.title('PCA')
+# plt.grid(True)
+# plt.savefig('pca/after_%d'%len(X)+'.png')
+# plt.show()
