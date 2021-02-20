@@ -31,7 +31,7 @@ print('X2',X2)
 # encoded with log256 = 8 bit, resulting in a 32 bit PQ code.
 encoder = pqkmeans.encoder.PQEncoder(num_subdim=5, Ks=256)
 # encoder train is (5 subpspaces * 256 codewords * 20 dimensions):
-encoder.fit(X2)  # Use a subset of X for training
+encoder.fit(X1)  # Use a subset of X for training
 # using for large dataset : fit_generator
 print("codewords.shape:\n{}".format(encoder.codewords.shape))
 # Convert input vectors to 32-bit PQ codes, where each PQ code consists of four uint8.
@@ -108,7 +108,6 @@ n_clusters_ = len(set(labels)) - (1 if -1 in labels else 0)
 
 print('hai Number of cluster in DBSCANN :  % d ' % n_clusters_)
 print('hai Elapsed time to cluster in DBSCANN :  %.4f s ' % hai_db_time_dbscan_process)
-
 
 #print(pqkmeans_cluster.cluster_centers_)
 #print("X PQ centers reconstructed: \n")

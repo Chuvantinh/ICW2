@@ -15,22 +15,28 @@ from sklearn.datasets.samples_generator import make_blobs
 import time
 import matplotlib.pyplot as plt
 # get dataset
-n_points_per_cluster_total = 3000000
-size_colum = 100
+# 1m 28s
+# 2m 58 s
+# 3m 86 s
+# 4m 115 s
+# 5m 141 s
+# 6m  142s
+# 7m  170s
+# 15m
+n_points_per_cluster_total = 1000000
+size_colum = 50
 centers = np.random.randint(-20, 20, size=(size_colum,size_colum))
 
 X, labels_true = make_blobs(n_samples=n_points_per_cluster_total,centers=centers, n_features=size_colum, cluster_std=0.4, random_state=0)
 print(X.shape)
 
 db_time = time.time()
-kmeans = MiniBatchKMeans(n_clusters=100,
-random_state = 0,
-batch_size = 300,
-max_iter = 100).fit(X)
+mini_kmeans = MiniBatchKMeans(init='k-means++',n_clusters=100).fit(X)
 
 db_time_process = time.time() - db_time
 print('Elapsed time to cluster in MInibatch kmeans :  %.4f s ' % db_time_process)
 
-cluster = kmeans.cluster_centers_
-labels = kmeans.labels_
+cluster = mini_kmeans.cluster_centers_
+labels = mini_kmeans.labels_
 print(len(cluster))
+print(cluster)

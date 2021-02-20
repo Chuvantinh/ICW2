@@ -1,4 +1,5 @@
 from sklearn.cluster import kmeans_plusplus
+#from k_means_plus_plus import *
 from sklearn.datasets import make_blobs
 import matplotlib.pyplot as plt
 import numpy as np
